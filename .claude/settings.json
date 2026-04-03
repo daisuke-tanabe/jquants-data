@@ -1,6 +1,6 @@
 {
   "language": "japanese",
-  "plansDirectory": "./plans",
+  "plansDirectory": "./.claude/plans",
   "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
