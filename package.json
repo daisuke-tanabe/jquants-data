@@ -1,0 +1,19 @@
+{
+  "name": "jquants-data",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "download": "tsx --env-file=.env scripts/download.ts --mode=full",
+    "update": "tsx --env-file=.env scripts/download.ts --mode=update"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

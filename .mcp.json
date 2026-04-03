@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "j-quants-doc-mcp": {
+      "command": "uvx",
+      "args": ["j-quants-doc-mcp"]
+    }
+  }
+}
