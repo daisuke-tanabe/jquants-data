@@ -10,8 +10,10 @@ function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export async function listFiles(endpoint: string, from: string, to: string): Promise<string[]> {
-  const params = new URLSearchParams({ endpoint, from, to })
+export async function listFiles(endpoint: string, from?: string, to?: string): Promise<string[]> {
+  const params = new URLSearchParams({ endpoint })
+  if (from) params.set('from', from)
+  if (to) params.set('to', to)
   const res = await fetch(`${BASE_URL}/bulk/list?${params}`, {
     headers: { 'x-api-key': apiKey() },
   })

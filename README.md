@@ -4,11 +4,22 @@ J-Quants Bulk API を使って CSV データをローカルに保存するリポ
 
 ## セットアップ
 
+### 1. Git LFS のインストールと初期化
+
 ```bash
+brew install git-lfs
+git lfs install
+```
+
+> `git lfs install` はグローバルな git フックを登録するもので、マシンごとに一度だけ実行する必要があります。
+
+### 2. 依存関係のインストールと環境変数の設定
+
+```bash
+pnpm install
+
 cp .env.example .env
 # .env に JQUANTS_API_KEY を設定
-
-pnpm install
 ```
 
 ## 使い方

@@ -25,10 +25,11 @@ function parseMode(): Mode {
 async function processDataset(
   endpoint: string,
   dir: string,
-  from: string,
-  to: string,
+  from?: string,
+  to?: string,
 ): Promise<void> {
-  console.log(`\n▶ ${endpoint}  (${from} 〜 ${to})`)
+  const range = from ? `${from} 〜 ${to ?? ''}` : '全期間'
+  console.log(`\n▶ ${endpoint}  (${range})`)
 
   const fullDir = path.join(DATA_DIR, dir)
   ensureDir(fullDir)
@@ -76,23 +77,22 @@ async function main(): Promise<void> {
   console.log(`=== jquants-data ダウンロード (mode: ${mode}, to: ${toMonth}) ===`)
 
   for (const dataset of DATASETS) {
-    let fromMonth: string
-
     if (mode === 'full') {
-      fromMonth = dataset.from
+      // full モード: from/to 指定なし → サブスクリプション期間全体を API に委ねる
+      await processDataset(dataset.endpoint, dataset.dir)
     } else {
       // update モード: 最終取得済み月の翌月 から ダウンロード
       const lastMonth = getLastDownloadedMonth(dataset.dir)
-      fromMonth = lastMonth ? nextMonth(lastMonth) : dataset.from
-    }
+      const fromMonth = lastMonth ? nextMonth(lastMonth) : dataset.from
 
-    // from > to の場合はスキップ（すべて最新）
-    if (fromMonth > toMonth) {
-      console.log(`\n▶ ${dataset.endpoint}  → 最新 (スキップ)`)
-      continue
-    }
+      // from > to の場合はスキップ（すべて最新）
+      if (fromMonth > toMonth) {
+        console.log(`\n▶ ${dataset.endpoint}  → 最新 (スキップ)`)
+        continue
+      }
 
-    await processDataset(dataset.endpoint, dataset.dir, fromMonth, toMonth)
+      await processDataset(dataset.endpoint, dataset.dir, fromMonth, toMonth)
+    }
   }
 
   console.log('\n=== 完了 ===')
