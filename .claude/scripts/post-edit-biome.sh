@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Write/Edit/MultiEdit 後に Biome check --write を実行する
+# biome が node_modules にない場合はスキップ
+# 対象: .ts / .tsx / .js / .jsx のみ
 set -euo pipefail
 
 file="$(jq -r '.tool_input.file_path // .tool_input.path // empty' <<< "$(cat)")"
