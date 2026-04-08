@@ -34,5 +34,8 @@ yarn-error.log*
 .env
 .env.local
 
+# data (large CSV files, not committed to git)
+data/
+
 # claude
 .claude/plans
